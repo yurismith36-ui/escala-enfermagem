@@ -9,206 +9,153 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div>
-      <div class="eyebrow">GESTÃO DE ESCALA</div>
-      <h1>Pronto Socorro</h1>
+<header class="topbar">
+  <div><div class="eyebrow">GESTÃO DE ESCALA</div><h1>Pronto Socorro</h1></div>
+  <div class="top-actions">
+    <select id="roleSelect" aria-label="Perfil de teste">
+      <option value="nurse">Enfermeiro responsável</option>
+      <option value="admin">Administrador</option>
+      <option value="employee">Funcionário</option>
+    </select>
+    <button id="resetBtn" class="ghost small">Restaurar exemplo</button>
+  </div>
+</header>
+
+<main class="app-shell">
+  <section id="nurseView" class="view">
+    <div class="hero-card hero-grid">
+      <div>
+        <span class="badge">ESCALA DO DIA</span>
+        <h2 id="scheduleDateTitle">18/09/2026</h2>
+        <p id="publishInfo">Rascunho ainda não publicado</p>
+      </div>
+      <div class="coordinator-card">
+        <span>RESPONSÁVEL DIÁRIO</span>
+        <strong id="dailyCoordinatorLabel">Enf. Carlos</strong>
+        <small id="dailyCoordinatorRoleLabel">Enfermeiro responsável pela escala diária</small>
+        <button id="coordinatorBtn" class="ghost small">Editar</button>
+      </div>
+      <div class="version-box"><span>VERSÃO</span><strong id="versionLabel">00</strong></div>
     </div>
-    <div class="top-actions">
-      <select id="roleSelect" aria-label="Perfil de teste">
-        <option value="nurse">Enfermeiro responsável</option>
-        <option value="admin">Administrador</option>
-        <option value="employee">Funcionário</option>
-      </select>
-      <button id="resetBtn" class="ghost small">Restaurar exemplo</button>
+
+    <div id="timerCard" class="timer-card draft">
+      <div><span class="status-dot"></span><strong id="timerStatus">Rascunho</strong><p id="timerHelp">Publique a escala para iniciar a janela de 2 horas.</p></div>
+      <div id="timerValue" class="timer-value">--:--:--</div>
     </div>
-  </header>
 
-  <main class="app-shell">
-    <section id="nurseView" class="view">
-      <div class="hero-card hero-grid">
-        <div>
-          <span class="badge">ESCALA DO DIA</span>
-          <h2 id="scheduleDateTitle">18/09/2026</h2>
-          <p id="publishInfo">Rascunho ainda não publicado</p>
-        </div>
-        <div class="coordinator-card">
-          <span>RESPONSÁVEL DIÁRIO</span>
-          <strong id="dailyCoordinatorLabel">Enf. Carlos</strong>
-          <small id="dailyCoordinatorRoleLabel">Enfermeiro responsável pela escala diária</small>
-          <button id="coordinatorBtn" class="ghost small">Editar</button>
-        </div>
-        <div class="version-box">
-          <span>VERSÃO</span>
-          <strong id="versionLabel">00</strong>
-        </div>
-      </div>
+    <div class="quick-actions">
+      <button id="publishBtn" class="primary">🟢 Publicar escala</button>
+      <button id="addRowBtn">＋ Adicionar posto</button>
+      <button id="absenceBtn">⚠ Registrar falta</button>
+      <button id="pngBtn">🖼️ Gerar imagem</button>
+      <button id="pdfBtn">📄 Gerar PDF</button>
+      <button id="unlockBtn" class="danger hidden">🔓 Desbloquear escala</button>
+    </div>
 
-      <div id="timerCard" class="timer-card draft">
-        <div>
-          <span class="status-dot"></span>
-          <strong id="timerStatus">Rascunho</strong>
-          <p id="timerHelp">Publique a escala para iniciar a janela de 2 horas.</p>
-        </div>
-        <div id="timerValue" class="timer-value">--:--:--</div>
-      </div>
+    <div class="section-title-row">
+      <div><div class="eyebrow">TÉCNICOS / APOIO</div><h3>Postos e atribuições</h3></div>
+      <span class="muted">Toque em uma linha para editar</span>
+    </div>
+    <div id="scheduleCards" class="schedule-grid"></div>
 
-      <div class="quick-actions">
-        <button id="publishBtn" class="primary">🟢 Publicar escala</button>
-        <button id="addRowBtn">＋ Adicionar posto</button>
-        <button id="absenceBtn">⚠ Registrar falta</button>
-        <button id="pngBtn">🖼️ Gerar imagem</button>
-        <button id="pdfBtn">📄 Gerar PDF</button>
-        <button id="unlockBtn" class="danger hidden">🔓 Desbloquear escala</button>
-      </div>
+    <div class="section-title-row">
+      <div><div class="eyebrow">ENFERMEIROS</div><h3>Responsáveis por área</h3></div>
+      <button id="addNurseBtn" class="ghost small">＋ Adicionar</button>
+    </div>
+    <div id="nurseCards" class="nurse-grid"></div>
 
-      <div class="section-title-row">
-        <div>
-          <div class="eyebrow">TÉCNICOS / APOIO</div>
-          <h3>Postos e atribuições</h3>
-        </div>
-        <span class="muted">Toque em uma linha para editar</span>
-      </div>
-      <div id="scheduleCards" class="schedule-grid"></div>
+    <div class="section-title-row">
+      <div><div class="eyebrow">INTERVALOS</div><h3>Refeições e descanso</h3></div>
+      <button id="editMealsBtn" class="ghost small">✎ Editar intervalos</button>
+    </div>
+    <div id="mealCards" class="meal-grid"></div>
 
-      <div class="section-title-row">
-        <div>
-          <div class="eyebrow">ENFERMEIROS</div>
-          <h3>Responsáveis por área</h3>
-        </div>
-        <button id="addNurseBtn" class="ghost small">＋ Adicionar</button>
-      </div>
-      <div id="nurseCards" class="nurse-grid"></div>
-
-      <div class="section-title-row">
-        <div>
-          <div class="eyebrow">INTERVALOS</div>
-          <h3>Refeições e descanso</h3>
-        </div>
-        <button id="addMealBtn" class="ghost small">✎ Editar / adicionar</button>
-      </div>
-      <div id="mealCards" class="meal-grid"></div>
-
-      <section class="history-panel">
-        <div class="section-title-row compact">
-          <div>
-            <div class="eyebrow">AUDITORIA</div>
-            <h3>Histórico de alterações</h3>
-          </div>
-        </div>
-        <div id="historyList" class="history-list"></div>
-      </section>
+    <section class="history-panel">
+      <div class="section-title-row compact"><div><div class="eyebrow">AUDITORIA</div><h3>Histórico de alterações</h3></div></div>
+      <div id="historyList" class="history-list"></div>
     </section>
+  </section>
 
-    <section id="employeeView" class="view hidden">
-      <div class="employee-hero">
-        <p class="eyebrow">ÁREA DO FUNCIONÁRIO</p>
-        <h2>Olá, <span id="employeeHello">Maria</span>!</h2>
-        <label>Visualizar como
-          <select id="employeeSelect"></select>
-        </label>
-      </div>
-      <div id="employeeShift" class="shift-card"></div>
-      <div class="employee-actions">
-        <button id="employeeFullScheduleBtn">📋 Ver escala completa</button>
-        <button id="employeePngBtn">🖼️ Ver imagem da escala</button>
-        <button id="employeePdfBtn">📄 Baixar/gerar PDF</button>
-      </div>
-      <div class="notice">
-        <strong>🔔 Alterações</strong>
-        <p id="employeeNotice">Nenhuma alteração importante para este profissional.</p>
-      </div>
-      <div class="employee-full" id="employeeFullSchedule"></div>
-    </section>
-  </main>
+  <section id="employeeView" class="view hidden">
+    <div class="employee-hero">
+      <p class="eyebrow">ÁREA DO FUNCIONÁRIO</p>
+      <h2>Olá, <span id="employeeHello">Maria</span>!</h2>
+      <label>Visualizar como<select id="employeeSelect"></select></label>
+    </div>
+    <div id="employeeShift" class="shift-card"></div>
+    <div class="employee-actions">
+      <button id="employeeFullScheduleBtn">📋 Ver escala completa</button>
+      <button id="employeePngBtn">🖼️ Ver imagem da escala</button>
+      <button id="employeePdfBtn">📄 Baixar/gerar PDF</button>
+    </div>
+    <div class="notice"><strong>🔔 Alterações</strong><p id="employeeNotice">Nenhuma alteração importante para este profissional.</p></div>
+    <div class="employee-full" id="employeeFullSchedule"></div>
+  </section>
+</main>
 
-  <dialog id="rowDialog">
-    <form method="dialog" id="rowForm" class="dialog-form">
-      <div class="dialog-head"><h3 id="rowDialogTitle">Editar posto</h3><button value="cancel" class="icon-btn" aria-label="Fechar">×</button></div>
-      <input type="hidden" id="rowId" />
-      <label>Posição<input id="rowPosition" required placeholder="Ex.: 1º" /></label>
-      <label>Setor / posto<input id="rowSector" required placeholder="Ex.: Leitos 3 a 8 + ISO" /></label>
-      <label>Profissional<input id="rowProfessional" required /></label>
-      <label>Função<input id="rowRole" required placeholder="Técnico de Enfermagem" /></label>
-      <label>Categoria / status
-        <select id="rowStatus">
-          <option>Escalado</option>
-          <option>Folga</option>
-          <option>Falta</option>
-          <option>Substituto</option>
-        </select>
-      </label>
-      <div class="two-cols">
-        <label>Início<input id="rowStart" type="time" required /></label>
-        <label>Fim<input id="rowEnd" type="time" required /></label>
-      </div>
-      <label>Atribuições<textarea id="rowDuties" rows="5"></textarea></label>
-      <label>Observações<textarea id="rowNotes" rows="3"></textarea></label>
-      <div class="dialog-actions">
-        <button type="button" id="deleteRowBtn" class="danger ghost">Remover</button>
-        <button type="button" id="saveRowBtn" class="primary">Salvar alteração</button>
-      </div>
-    </form>
-  </dialog>
+<dialog id="rowDialog">
+  <form method="dialog" class="dialog-form">
+    <div class="dialog-head"><h3 id="rowDialogTitle">Editar posto</h3><button value="cancel" class="icon-btn">×</button></div>
+    <input type="hidden" id="rowId" />
+    <label>Posição<input id="rowPosition" required /></label>
+    <label>Setor / posto<input id="rowSector" required /></label>
+    <label>Profissional<input id="rowProfessional" required /></label>
+    <label>Função<input id="rowRole" required /></label>
+    <label>Categoria / status<select id="rowStatus"><option>Escalado</option><option>Folga</option><option>Falta</option><option>Substituto</option></select></label>
+    <div class="two-cols"><label>Início<input id="rowStart" type="time" required /></label><label>Fim<input id="rowEnd" type="time" required /></label></div>
+    <label>Atribuições<textarea id="rowDuties" rows="5"></textarea></label>
+    <label>Observações<textarea id="rowNotes" rows="3"></textarea></label>
+    <div class="dialog-actions"><button type="button" id="deleteRowBtn" class="danger ghost">Remover</button><button type="button" id="saveRowBtn" class="primary">Salvar alteração</button></div>
+  </form>
+</dialog>
 
-  <dialog id="nurseDialog">
-    <form method="dialog" class="dialog-form">
-      <div class="dialog-head"><h3>Enfermeiro responsável</h3><button value="cancel" class="icon-btn">×</button></div>
-      <input type="hidden" id="nurseId" />
-      <label>Área<input id="nurseArea" required /></label>
-      <label>Enfermeiro(a)<input id="nurseName" required /></label>
-      <label>Atribuição<textarea id="nurseDuties" rows="5"></textarea></label>
-      <div class="dialog-actions">
-        <button type="button" id="deleteNurseBtn" class="danger ghost">Remover</button>
-        <button type="button" id="saveNurseBtn" class="primary">Salvar</button>
-      </div>
-    </form>
-  </dialog>
+<dialog id="nurseDialog">
+  <form method="dialog" class="dialog-form">
+    <div class="dialog-head"><h3>Enfermeiro responsável</h3><button value="cancel" class="icon-btn">×</button></div>
+    <input type="hidden" id="nurseId" />
+    <label>Área<input id="nurseArea" required /></label>
+    <label>Enfermeiro(a)<input id="nurseName" required /></label>
+    <label>Atribuição<textarea id="nurseDuties" rows="5"></textarea></label>
+    <div class="dialog-actions"><button type="button" id="deleteNurseBtn" class="danger ghost">Remover</button><button type="button" id="saveNurseBtn" class="primary">Salvar</button></div>
+  </form>
+</dialog>
 
-  <dialog id="mealDialog">
-    <form method="dialog" class="dialog-form">
-      <div class="dialog-head"><h3>Intervalo / refeição</h3><button value="cancel" class="icon-btn">×</button></div>
-      <input type="hidden" id="mealId" />
-      <label>Título<input id="mealTitle" required placeholder="Ex.: Café da manhã" /></label>
-      <label>Linhas do intervalo (uma por linha)
-        <textarea id="mealLines" rows="6" placeholder="11h — Maria / Raquel / Elisandra&#10;12h — Juliana / Lia / Lavanya"></textarea>
-      </label>
-      <div class="dialog-actions">
-        <button type="button" id="deleteMealBtn" class="danger ghost">Remover</button>
-        <button type="button" id="saveMealBtn" class="primary">Salvar</button>
-      </div>
-    </form>
-  </dialog>
+<dialog id="mealsDialog" class="wide-dialog">
+  <form method="dialog" class="dialog-form">
+    <div class="dialog-head"><div><h3>Editar intervalos</h3><p class="muted">Edite horários e nomes. Você pode adicionar ou remover linhas.</p></div><button value="cancel" class="icon-btn">×</button></div>
+    <div id="mealsEditor" class="meals-editor"></div>
+    <div class="dialog-actions"><button type="button" id="saveMealsBtn" class="primary">Salvar todos os intervalos</button></div>
+  </form>
+</dialog>
 
-  <dialog id="absenceDialog">
-    <form method="dialog" class="dialog-form">
-      <div class="dialog-head"><h3>Registrar falta / substituição</h3><button value="cancel" class="icon-btn">×</button></div>
-      <label>Profissional ausente<select id="absenceProfessional"></select></label>
-      <label>Substituto<input id="replacementProfessional" placeholder="Nome do substituto" required /></label>
-      <label>Motivo<textarea id="absenceReason" rows="4" placeholder="Ex.: Falta não comunicada previamente" required></textarea></label>
-      <div class="dialog-actions"><button type="button" id="confirmAbsenceBtn" class="danger">Confirmar substituição</button></div>
-    </form>
-  </dialog>
+<dialog id="absenceDialog">
+  <form method="dialog" class="dialog-form">
+    <div class="dialog-head"><h3>Registrar falta / substituição</h3><button value="cancel" class="icon-btn">×</button></div>
+    <label>Profissional ausente<select id="absenceProfessional"></select></label>
+    <label>Substituto<input id="replacementProfessional" placeholder="Nome do substituto" required /></label>
+    <label>Motivo<textarea id="absenceReason" rows="4" required></textarea></label>
+    <div class="dialog-actions"><button type="button" id="confirmAbsenceBtn" class="danger">Confirmar substituição</button></div>
+  </form>
+</dialog>
 
-  <dialog id="unlockDialog">
-    <form method="dialog" class="dialog-form">
-      <div class="dialog-head"><h3>Desbloqueio excepcional</h3><button value="cancel" class="icon-btn">×</button></div>
-      <p class="muted">Esta ação ficará registrada no histórico.</p>
-      <label>Motivo<textarea id="unlockReason" rows="4" required></textarea></label>
-      <div class="dialog-actions"><button type="button" id="confirmUnlockBtn" class="danger">Desbloquear</button></div>
-    </form>
-  </dialog>
+<dialog id="unlockDialog">
+  <form method="dialog" class="dialog-form">
+    <div class="dialog-head"><h3>Desbloqueio excepcional</h3><button value="cancel" class="icon-btn">×</button></div>
+    <label>Motivo<textarea id="unlockReason" rows="4" required></textarea></label>
+    <div class="dialog-actions"><button type="button" id="confirmUnlockBtn" class="danger">Desbloquear</button></div>
+  </form>
+</dialog>
 
-  <dialog id="coordinatorDialog">
-    <form method="dialog" class="dialog-form">
-      <div class="dialog-head"><h3>Responsável pela escala diária</h3><button value="cancel" class="icon-btn">×</button></div>
-      <label>Nome<input id="coordinatorName" required /></label>
-      <label>Cargo / categoria<input id="coordinatorRole" required value="Enfermeiro responsável pela escala diária" /></label>
-      <div class="dialog-actions"><button type="button" id="saveCoordinatorBtn" class="primary">Salvar</button></div>
-    </form>
-  </dialog>
+<dialog id="coordinatorDialog">
+  <form method="dialog" class="dialog-form">
+    <div class="dialog-head"><h3>Responsável pela escala diária</h3><button value="cancel" class="icon-btn">×</button></div>
+    <label>Nome<input id="coordinatorName" required /></label>
+    <label>Cargo / categoria<input id="coordinatorRole" required /></label>
+    <div class="dialog-actions"><button type="button" id="saveCoordinatorBtn" class="primary">Salvar</button></div>
+  </form>
+</dialog>
 
-  <canvas id="exportCanvas" class="hidden"></canvas>
-  <script src="app.js"></script>
+<canvas id="exportCanvas" class="hidden"></canvas>
+<script src="app.js"></script>
 </body>
 </html>

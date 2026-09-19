@@ -1,11 +1,15 @@
-# Escala de Enfermagem — Protótipo V2
+# Escala de Enfermagem — V3
 
-Atualização do protótipo com melhorias pedidas:
+Atualização principal desta versão:
 
-- gerar imagem completa com todos os tópicos (postos, enfermeiros, intervalos e histórico);
-- intervalos editáveis;
-- categorias/status para posto: Escalado, Folga, Falta e Substituto;
-- responsável diário da escala editável;
-- histórico ampliado.
+- botão **Editar intervalos** funcionando;
+- editor único para Café da manhã, Almoço/Janta e Lanche da tarde;
+- horários editáveis;
+- nomes editáveis;
+- adicionar/remover linhas de horário;
+- categorias Escalado, Folga, Falta e Substituto;
+- enfermeiro responsável pela escala diária editável;
+- imagem gerada com postos, enfermeiros, intervalos e histórico.
 
-Abra `index.html` no navegador.
+Para atualizar no GitHub Pages, substitua os arquivos antigos pelos arquivos desta pasta.
+Depois faça `Ctrl + F5` no navegador.
