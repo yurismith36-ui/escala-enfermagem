@@ -1,0 +1,9 @@
+{
+  "name":"Escala de Enfermagem - Pronto Socorro",
+  "short_name":"Escala PS",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#f3f6f8",
+  "theme_color":"#0f766e",
+  "description":"Protótipo para criação e divulgação da escala diária da equipe de enfermagem."
+}
