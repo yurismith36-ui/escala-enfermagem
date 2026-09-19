@@ -26,11 +26,17 @@
 
   <main class="app-shell">
     <section id="nurseView" class="view">
-      <div class="hero-card">
+      <div class="hero-card hero-grid">
         <div>
           <span class="badge">ESCALA DO DIA</span>
           <h2 id="scheduleDateTitle">18/09/2026</h2>
           <p id="publishInfo">Rascunho ainda não publicado</p>
+        </div>
+        <div class="coordinator-card">
+          <span>RESPONSÁVEL DIÁRIO</span>
+          <strong id="dailyCoordinatorLabel">Enf. Carlos</strong>
+          <small id="dailyCoordinatorRoleLabel">Enfermeiro responsável pela escala diária</small>
+          <button id="coordinatorBtn" class="ghost small">Editar</button>
         </div>
         <div class="version-box">
           <span>VERSÃO</span>
@@ -79,6 +85,7 @@
           <div class="eyebrow">INTERVALOS</div>
           <h3>Refeições e descanso</h3>
         </div>
+        <button id="addMealBtn" class="ghost small">✎ Editar / adicionar</button>
       </div>
       <div id="mealCards" class="meal-grid"></div>
 
@@ -123,6 +130,14 @@
       <label>Setor / posto<input id="rowSector" required placeholder="Ex.: Leitos 3 a 8 + ISO" /></label>
       <label>Profissional<input id="rowProfessional" required /></label>
       <label>Função<input id="rowRole" required placeholder="Técnico de Enfermagem" /></label>
+      <label>Categoria / status
+        <select id="rowStatus">
+          <option>Escalado</option>
+          <option>Folga</option>
+          <option>Falta</option>
+          <option>Substituto</option>
+        </select>
+      </label>
       <div class="two-cols">
         <label>Início<input id="rowStart" type="time" required /></label>
         <label>Fim<input id="rowEnd" type="time" required /></label>
@@ -150,6 +165,21 @@
     </form>
   </dialog>
 
+  <dialog id="mealDialog">
+    <form method="dialog" class="dialog-form">
+      <div class="dialog-head"><h3>Intervalo / refeição</h3><button value="cancel" class="icon-btn">×</button></div>
+      <input type="hidden" id="mealId" />
+      <label>Título<input id="mealTitle" required placeholder="Ex.: Café da manhã" /></label>
+      <label>Linhas do intervalo (uma por linha)
+        <textarea id="mealLines" rows="6" placeholder="11h — Maria / Raquel / Elisandra&#10;12h — Juliana / Lia / Lavanya"></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" id="deleteMealBtn" class="danger ghost">Remover</button>
+        <button type="button" id="saveMealBtn" class="primary">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
   <dialog id="absenceDialog">
     <form method="dialog" class="dialog-form">
       <div class="dialog-head"><h3>Registrar falta / substituição</h3><button value="cancel" class="icon-btn">×</button></div>
@@ -166,6 +196,15 @@
       <p class="muted">Esta ação ficará registrada no histórico.</p>
       <label>Motivo<textarea id="unlockReason" rows="4" required></textarea></label>
       <div class="dialog-actions"><button type="button" id="confirmUnlockBtn" class="danger">Desbloquear</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="coordinatorDialog">
+    <form method="dialog" class="dialog-form">
+      <div class="dialog-head"><h3>Responsável pela escala diária</h3><button value="cancel" class="icon-btn">×</button></div>
+      <label>Nome<input id="coordinatorName" required /></label>
+      <label>Cargo / categoria<input id="coordinatorRole" required value="Enfermeiro responsável pela escala diária" /></label>
+      <div class="dialog-actions"><button type="button" id="saveCoordinatorBtn" class="primary">Salvar</button></div>
     </form>
   </dialog>
 
